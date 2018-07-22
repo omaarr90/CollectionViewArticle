@@ -8,11 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+//فقط نجعل الكلاس يرث DetailsCollectionViewController
+class ViewController: DetailsCollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        self.title = "Magic UI"
+        //نقوم باستدعاء الدالة المساعدة لإضافة العنوان/الترأيس
+        self.addHeaderNameWithTitle(title: "My First Title")
     }
 
     override func didReceiveMemoryWarning() {
