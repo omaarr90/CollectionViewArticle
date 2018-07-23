@@ -19,6 +19,9 @@ class DetailsCollectionViewController: UICollectionViewController, UICollectionV
         
         let headerNameNib = UINib(nibName: "HeaderCollectionViewCell", bundle: Bundle.main)
         self.collectionView?.register(headerNameNib, forCellWithReuseIdentifier: "HeaderNameCollectionViewCell")
+        
+        let detailsNameNib = UINib(nibName: "LabelCollectionViewCell", bundle: Bundle.main)
+        self.collectionView?.register(detailsNameNib, forCellWithReuseIdentifier: "DetailTextCollectionViewCell")
     }
     
     // MARK: UICollectionViewDataSource
@@ -39,6 +42,11 @@ class DetailsCollectionViewController: UICollectionViewController, UICollectionV
         case .header:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: viewModel.reuseIdentifier(), for: indexPath) as! HeaderCollectionViewCell
             cell.headerLabel.text = viewModel.headerCellProperty?.title
+            return cell
+        case .details:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: viewModel.reuseIdentifier(), for: indexPath) as! LabelCollectionViewCell
+            cell.titleLabel.text = viewModel.detailsCellProperty?.title
+            cell.subtitleLabel.text = viewModel.detailsCellProperty?.subtitle
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
@@ -68,10 +76,16 @@ class DetailsCollectionViewController: UICollectionViewController, UICollectionV
 }
 
 extension DetailsCollectionViewController {
-    func addHeaderNameWithTitle(title: String) {
+    func addHeader(with title: String) {
         let headerCellProperty = HeaderCellProperty(title: title)
         let viewModel = DetailsViewModel(headerCellProperty: headerCellProperty)
         self.viewModels.append(viewModel)
     }
-    
+
+    func  addDetails(with title: String, and subtitle: String) {
+        let detailsCellProperty = DetailsCellProperty(title: title, subtitle: subtitle)
+        let viewModel = DetailsViewModel(detailsCellProperty: detailsCellProperty)
+        self.viewModels.append(viewModel)
+    }
+
 }
